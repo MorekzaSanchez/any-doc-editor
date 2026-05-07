@@ -188,8 +188,10 @@ function PdfEditor() {
       copied.forEach((p) => base.addPage(p));
     }
     const merged = await base.save();
-    setBytes(merged.buffer.slice(merged.byteOffset, merged.byteOffset + merged.byteLength) as ArrayBuffer);
-    const imgs = await renderPdfPagesToImages(merged.buffer.slice(merged.byteOffset, merged.byteOffset + merged.byteLength), 1.5);
+    const ab = new ArrayBuffer(merged.byteLength);
+    new Uint8Array(ab).set(merged);
+    setBytes(ab);
+    const imgs = await renderPdfPagesToImages(ab.slice(0), 1.5);
     setPages(imgs.map((p) => ({ ...p, rotation: 0 })));
     setLoading(false);
   }
