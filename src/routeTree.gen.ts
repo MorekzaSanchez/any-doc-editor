@@ -9,25 +9,15 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as PdfRouteImport } from './routes/pdf'
-import { Route as OcrRouteImport } from './routes/ocr'
-import { Route as EditorRouteImport } from './routes/editor'
-import { Route as ConvertRouteImport } from './routes/convert'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ConvertRouteImport } from './routes/convert'
+import { Route as EditorRouteImport } from './routes/editor'
+import { Route as OcrRouteImport } from './routes/ocr'
+import { Route as PdfRouteImport } from './routes/pdf'
 
-const PdfRoute = PdfRouteImport.update({
-  id: '/pdf',
-  path: '/pdf',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const OcrRoute = OcrRouteImport.update({
-  id: '/ocr',
-  path: '/ocr',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const EditorRoute = EditorRouteImport.update({
-  id: '/editor',
-  path: '/editor',
+const IndexRoute = IndexRouteImport.update({
+  id: '/',
+  path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ConvertRoute = ConvertRouteImport.update({
@@ -35,9 +25,19 @@ const ConvertRoute = ConvertRouteImport.update({
   path: '/convert',
   getParentRoute: () => rootRouteImport,
 } as any)
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
+const EditorRoute = EditorRouteImport.update({
+  id: '/editor',
+  path: '/editor',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OcrRoute = OcrRouteImport.update({
+  id: '/ocr',
+  path: '/ocr',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PdfRoute = PdfRouteImport.update({
+  id: '/pdf',
+  path: '/pdf',
   getParentRoute: () => rootRouteImport,
 } as any)
 
@@ -81,25 +81,11 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/pdf': {
-      id: '/pdf'
-      path: '/pdf'
-      fullPath: '/pdf'
-      preLoaderRoute: typeof PdfRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/ocr': {
-      id: '/ocr'
-      path: '/ocr'
-      fullPath: '/ocr'
-      preLoaderRoute: typeof OcrRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/editor': {
-      id: '/editor'
-      path: '/editor'
-      fullPath: '/editor'
-      preLoaderRoute: typeof EditorRouteImport
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/convert': {
@@ -109,11 +95,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ConvertRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
+    '/editor': {
+      id: '/editor'
+      path: '/editor'
+      fullPath: '/editor'
+      preLoaderRoute: typeof EditorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ocr': {
+      id: '/ocr'
+      path: '/ocr'
+      fullPath: '/ocr'
+      preLoaderRoute: typeof OcrRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/pdf': {
+      id: '/pdf'
+      path: '/pdf'
+      fullPath: '/pdf'
+      preLoaderRoute: typeof PdfRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
